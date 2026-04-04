@@ -1,7 +1,10 @@
 // MD3 Expressive QDrawer List Overrides
-// Two list variants:
+// Vertical variants (for QDrawer mini mode):
 //   .q-list--drawer  — standard navigation drawer (labels hide in mini mode)
 //   .q-list--rail    — navigation rail (labels reposition below icon in mini mode)
+// Horizontal variants (static, no animation):
+//   .q-list--rail-h--wide    — horizontal rail, expanded (icon + full label)
+//   .q-list--rail-h--narrow  — horizontal rail, collapsed (icon + small label below)
 
 // ============================================================
 // SHARED: Base List Layout
@@ -19,9 +22,31 @@
   letter-spacing: 0.00714em;
 }
 
+// Horizontal rail: grid layout, equal-width cells, items centered
+.q-list.q-list--rail-h--wide,
+.q-list.q-list--rail-h--narrow {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  gap: 2px;
+  width: 100%;
+  color: var(--md3-on-surface-variant);
+  font-size: $md3-type-title-medium-size;
+  font-weight: $md3-type-title-medium-weight;
+  letter-spacing: 0.00714em;
+  height: 64px;
+  max-height: 64px;
+}
+
 .q-list.q-list--rail:not(.q-list--rail--narrow) {
   padding-left: 20px;
   padding-right: 20px;
+}
+
+.q-list.q-list--rail-h--wide.q-list--dense,
+.q-list.q-list--rail-h--narrow.q-list--dense {
+  height: 44px;
+  max-height: 44px;
 }
 
 // Animate border-radius during mini open/close
@@ -36,7 +61,7 @@
   box-shadow: none !important;
 }
 
-// Keep medium FAB square
+// Keep medium FAB square (vertical variants only)
 .q-list.q-list--drawer .q-btn,
 .q-list.q-list--rail .q-btn {
   min-width: 56px;
@@ -48,10 +73,28 @@
 // ============================================================
 
 .q-list.q-list--drawer .q-item,
-.q-list.q-list--rail .q-item {
+.q-list.q-list--rail .q-item,
+.q-list.q-list--rail-h--wide .q-item,
+.q-list.q-list--rail-h--narrow .q-item {
   min-height: 56px;
   border-radius: $md3-corner-full;
   justify-content: flex-start !important;
+}
+
+.q-list.q-list--rail-h--wide .q-item {
+  min-height: 48px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.q-list.q-list--rail-h--narrow .q-item {
+  margin-top: 4px;
+}
+
+// Horizontal: items center in their grid cell
+.q-list.q-list--rail-h--wide .q-item,
+.q-list.q-list--rail-h--narrow .q-item {
+  justify-self: center;
 }
 
 .q-drawer--right .q-list.q-list--drawer .q-item:has(.q-btn),
@@ -81,12 +124,23 @@
   padding-bottom: 0;
 }
 
+// Horizontal: simple padding, no utility class exclusions needed
+.q-list.q-list--rail-h--wide .q-item,
+.q-list.q-list--rail-h--narrow .q-item {
+  padding: 0 16px;
+}
+
+.q-list.q-list--rail-h--narrow .q-item .q-item__section--avatar {
+  padding: 0;
+}
+
 // ============================================================
 // SHARED: Item Typography
 // ============================================================
 
 .q-list.q-list--drawer .q-item__label,
-.q-list.q-list--rail .q-item__label {
+.q-list.q-list--rail .q-item__label,
+.q-list.q-list--rail-h--wide .q-item__label {
   font-size: $md3-type-title-medium-size;
   font-weight: $md3-type-title-medium-weight;
   line-height: $md3-type-label-large-line-height !important;
@@ -94,14 +148,17 @@
 }
 
 .q-list.q-list--drawer .q-item__label--caption,
-.q-list.q-list--rail .q-item__label--caption {
+.q-list.q-list--rail .q-item__label--caption,
+.q-list.q-list--rail-h--wide .q-item__label--caption {
   font-size: $md3-type-body-medium-size;
   font-weight: $md3-type-body-medium-weight;
   line-height: $md3-type-body-small-line-height !important;
 }
 
 .q-list.q-list--drawer .q-item__label + .q-item__label,
-.q-list.q-list--rail .q-item__label + .q-item__label {
+.q-list.q-list--rail .q-item__label + .q-item__label,
+.q-list.q-list--rail-h--wide .q-item__label + .q-item__label,
+.q-list.q-list--rail-h--narrow .q-item__label + .q-item__label {
   margin-top: 0;
 }
 
@@ -110,7 +167,9 @@
 // ============================================================
 
 .q-list.q-list--drawer .q-item__section--side ~ .q-item__section--side,
-.q-list.q-list--rail .q-item__section--side ~ .q-item__section--side {
+.q-list.q-list--rail .q-item__section--side ~ .q-item__section--side,
+.q-list.q-list--rail-h--wide .q-item__section--side ~ .q-item__section--side,
+.q-list.q-list--rail-h--narrow .q-item__section--side ~ .q-item__section--side {
   color: var(--md3-on-surface-variant);
   padding-right: 12px;
 
@@ -120,13 +179,16 @@
 }
 
 .q-list.q-list--drawer .q-item__section--main ~ .q-item__section--side,
-.q-list.q-list--rail .q-item__section--main ~ .q-item__section--side {
+.q-list.q-list--rail .q-item__section--main ~ .q-item__section--side,
+.q-list.q-list--rail-h--wide .q-item__section--main ~ .q-item__section--side {
   padding-left: 12px;
   padding-right: 0;
 }
 
 .q-list.q-list--drawer .q-item__section--avatar,
-.q-list.q-list--rail .q-item__section--avatar {
+.q-list.q-list--rail .q-item__section--avatar,
+.q-list.q-list--rail-h--wide .q-item__section--avatar,
+.q-list.q-list--rail-h--narrow .q-item__section--avatar {
   min-width: 0;
 }
 
@@ -137,7 +199,11 @@
 body.desktop .q-list.q-list--drawer .q-item.q-hoverable:hover > .q-focus-helper,
 body.desktop .q-list.q-list--drawer .q-item.q-focusable:focus > .q-focus-helper,
 body.desktop .q-list.q-list--rail .q-item.q-hoverable:hover > .q-focus-helper,
-body.desktop .q-list.q-list--rail .q-item.q-focusable:focus > .q-focus-helper {
+body.desktop .q-list.q-list--rail .q-item.q-focusable:focus > .q-focus-helper,
+body.desktop .q-list.q-list--rail-h--wide .q-item.q-hoverable:hover > .q-focus-helper,
+body.desktop .q-list.q-list--rail-h--wide .q-item.q-focusable:focus > .q-focus-helper,
+body.desktop .q-list.q-list--rail-h--narrow .q-item.q-hoverable:hover > .q-focus-helper,
+body.desktop .q-list.q-list--rail-h--narrow .q-item.q-focusable:focus > .q-focus-helper {
   opacity: 0.12 !important;
 }
 
@@ -159,17 +225,24 @@ body.desktop .q-list.q-list--rail .q-item.q-focusable:focus > .q-focus-helper {
 // ============================================================
 
 .q-list.q-list--drawer .q-item--active,
-.q-list.q-list--drawer .q-item.q-router-link--active {
+.q-list.q-list--drawer .q-item.q-router-link--active,
+.q-list.q-list--rail-h--wide .q-item--active,
+.q-list.q-list--rail-h--wide .q-item.q-router-link--active {
   background: var(--md3-secondary-container);
   color: var(--md3-on-secondary-container);
 }
 
 // Rail: always use ::before for active highlight (animatable between states)
+// isolation: isolate creates a stacking context so z-index: -1 on ::before
+// stays behind item content but in front of parent background.
 .q-list.q-list--rail .q-item--active,
-.q-list.q-list--rail .q-item.q-router-link--active {
+.q-list.q-list--rail .q-item.q-router-link--active,
+.q-list.q-list--rail-h--narrow .q-item--active,
+.q-list.q-list--rail-h--narrow .q-item.q-router-link--active {
   background: transparent;
   color: var(--md3-on-secondary-container);
   position: relative;
+  isolation: isolate;
 
   &::before {
     content: '';
@@ -192,7 +265,15 @@ body.desktop .q-list.q-list--rail .q-item.q-focusable:focus > .q-focus-helper {
 .q-list.q-list--rail .q-item--active .q-item__section--side,
 .q-list.q-list--rail .q-item.q-router-link--active .q-item__section--side,
 .q-list.q-list--rail .q-item--active .q-item__label--caption,
-.q-list.q-list--rail .q-item.q-router-link--active .q-item__label--caption {
+.q-list.q-list--rail .q-item.q-router-link--active .q-item__label--caption,
+.q-list.q-list--rail-h--wide .q-item--active .q-item__section--side,
+.q-list.q-list--rail-h--wide .q-item.q-router-link--active .q-item__section--side,
+.q-list.q-list--rail-h--wide .q-item--active .q-item__label--caption,
+.q-list.q-list--rail-h--wide .q-item.q-router-link--active .q-item__label--caption,
+.q-list.q-list--rail-h--narrow .q-item--active .q-item__section--side,
+.q-list.q-list--rail-h--narrow .q-item.q-router-link--active .q-item__section--side,
+.q-list.q-list--rail-h--narrow .q-item--active .q-item__label--caption,
+.q-list.q-list--rail-h--narrow .q-item.q-router-link--active .q-item__label--caption {
   color: var(--md3-on-secondary-container);
 }
 
@@ -201,7 +282,9 @@ body.desktop .q-list.q-list--rail .q-item.q-focusable:focus > .q-focus-helper {
 // ============================================================
 
 .q-list.q-list--drawer .q-item.disabled,
-.q-list.q-list--rail .q-item.disabled {
+.q-list.q-list--rail .q-item.disabled,
+.q-list.q-list--rail-h--wide .q-item.disabled,
+.q-list.q-list--rail-h--narrow .q-item.disabled {
   opacity: 1;
 
   .q-item__label,
@@ -227,8 +310,20 @@ body.desktop .q-list.q-list--rail .q-item.q-focusable:focus > .q-focus-helper {
 .q-list.q-list--drawer.q-list--dense > .q-item,
 .q-list.q-list--drawer .q-item--dense,
 .q-list.q-list--rail.q-list--dense > .q-item,
-.q-list.q-list--rail .q-item--dense {
+.q-list.q-list--rail .q-item--dense,
+.q-list.q-list--rail-h--narrow.q-list--dense > .q-item,
+.q-list.q-list--rail-h--narrow .q-item--dense {
   min-height: 44px;
+}
+
+.q-list.q-list--rail-h--wide.q-list--dense > .q-item,
+.q-list.q-list--rail-h--wide .q-item--dense {
+  min-height: 28px;
+}
+
+.q-list.q-list--rail-h--narrow.q-list--dense > .q-item,
+.q-list.q-list--rail-h--narrow .q-item--dense {
+  margin-top: 0;
 }
 
 // ============================================================
@@ -510,4 +605,86 @@ body.desktop .q-list.q-list--rail .q-item.q-focusable:focus > .q-focus-helper {
 .q-drawer--standard:not(.q-drawer--mini-animate) .q-list.q-list--rail .q-item__section--main,
 .q-drawer--standard:not(.q-drawer--mini-animate) .q-list.q-list--rail .q-item__section--side ~ .q-item__section--side {
   animation: q-drawer-label-fade-in 0.14s ease-out;
+}
+
+// ============================================================
+// HORIZONTAL RAIL: Narrow (collapsed) state
+// ============================================================
+// Static equivalent of the vertical rail's mini state.
+// No animations — just the final collapsed look.
+
+// Items: overflow visible for label, relative for absolute label positioning
+.q-list.q-list--rail-h--narrow .q-item {
+  position: relative;
+  overflow: visible;
+}
+
+// Icon shifted up
+.q-list.q-list--rail-h--narrow .q-item__section--avatar {
+  transform: translateY(-10px);
+}
+
+// Label: positioned below icon, centered, small text
+.q-list.q-list--rail-h--narrow .q-item__section--main {
+  position: absolute;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: none;
+  white-space: nowrap;
+  font-size: 12px;
+}
+
+// First label: label-medium typography
+.q-list.q-list--rail-h--narrow .q-item__label:first-child {
+  font-size: $md3-type-label-medium-size;
+  font-weight: $md3-type-label-medium-weight;
+  line-height: $md3-type-label-medium-line-height !important;
+  letter-spacing: $md3-type-label-medium-letter-spacing;
+}
+
+// Caption hidden in narrow
+.q-list.q-list--rail-h--narrow .q-item__label--caption {
+  display: none !important;
+}
+
+// Trailing side sections hidden in narrow
+.q-list.q-list--rail-h--narrow .q-item__section--side ~ .q-item__section--side {
+  display: none !important;
+}
+
+// Active highlight: icon-only pill via ::before
+.q-list.q-list--rail-h--narrow .q-item--active::before,
+.q-list.q-list--rail-h--narrow .q-item.q-router-link--active::before {
+  height: 50%;
+  top: 4px;
+}
+
+// Focus helper: icon-only pill
+.q-list.q-list--rail-h--narrow .q-item > .q-focus-helper {
+  height: 50%;
+  top: 4px;
+  bottom: auto;
+  border-radius: $md3-corner-full;
+}
+
+// Ripple: constrained to icon pill
+.q-list.q-list--rail-h--narrow .q-item .q-ripple {
+  height: 50%;
+  top: 4px;
+  bottom: auto;
+  border-radius: $md3-corner-full;
+  overflow: hidden;
+}
+
+// Dense narrow: smaller icon shift, label closer to bottom
+.q-list.q-list--rail-h--narrow .q-item--dense .q-item__section--avatar,
+.q-list.q-list--rail-h--narrow.q-list--dense > .q-item .q-item__section--avatar {
+  transform: translateY(-6px);
+}
+
+.q-list.q-list--rail-h--narrow .q-item--dense .q-item__section--main,
+.q-list.q-list--rail-h--narrow.q-list--dense > .q-item .q-item__section--main {
+  bottom: 2px;
 }

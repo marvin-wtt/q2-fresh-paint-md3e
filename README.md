@@ -510,6 +510,26 @@ keeps the old drawer-style paddings rather than the new rail-style paddings. `mi
 </q-drawer>
 ```
 
+### Navigation bar
+
+Both narrow (icons above label, narrow screens) and wide (icons next to label, wider screens)
+navigation bars have been implemented the same as the navigation rail (see `QDrawer`). They use the 
+`q-list--rail-h--wide` and `q-list--rail-h--narrow` classes:
+
+```vue
+<q-footer>
+  <q-list class="q-list--rail-h--wide">
+    <q-item clickable v-ripple :active="activeNav === 'home'" @click="activeNav = 'home'">
+      <q-item-section avatar><q-icon name="sym_r_home" /></q-item-section>
+      <q-item-section>Home</q-item-section>
+    </q-item>
+    <!-- ... -->        
+  </q-list>
+</q-footer>
+```
+
+Buttons and FABs are not supported here, though.
+
 ### `QBadge`
 
 The standard Quasar badge extends to the left from the right side of the target. Added `q-badge--center` class that
