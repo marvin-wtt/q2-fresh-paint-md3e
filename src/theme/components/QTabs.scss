@@ -7,6 +7,16 @@
   text-transform: none;
 }
 
+// === Equal width ===
+// MD3E prescribes equal width tabs.
+// Grid with 1fr columns: all tabs equal to the widest tab's content.
+.q-tabs--equal .q-tabs__content {
+  display: grid !important;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  flex-wrap: nowrap;
+}
+
 // === Tab Indicator (Horizontal) ===
 // MD3E primary tabs: 3dp height, rounded top corners (3px 3px 0 0)
 .q-tab__indicator {
@@ -42,4 +52,10 @@
 // MD3E specifies 64dp for icon+text tabs (Quasar default is 72px)
 .q-tab--full {
   min-height: 64px;
+}
+
+// === Minimum Width ===
+// MD3D specifies 24dp vs Quasar's 40dp
+.q-tab__content {
+  min-width: 24px;
 }

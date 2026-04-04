@@ -516,6 +516,24 @@ The standard Quasar badge extends to the left from the right side of the target.
 keeps the middle of the badge on the right side of the target, and `q-badge--right` that extends longer badges to the
 right. Intended for use with *floating* badges.
 
+### `QTabs`
+
+Per MD3E specs, primary tabs should be icon above label (*not* `inline-label`) have `narrow-indicator` set, and be
+equal width (`class="q-tabs--equal"` inside `QToolbar`, `align="justify"` elsewhere). When used inside a `QToolbar`,
+you also need to replace `shrink` with `stretch` for the buttons to fit:
+
+```vue
+<q-toolbar>
+  <q-tabs narrow-indicator stretch class="q-tabs--equal" />
+</q-toolbar>
+```
+
+Secondary tabs should have `inline-label` and *wide* indicators:
+
+```vue
+<q-tabs inline-label align="justify" />
+```
+
 ## Boot File
 
 The boot file (`~@anoyomoose/q2-fresh-paint-md3e/boot`) must be registered in the `boot` array of `quasar.config.js`. It runs at app startup and does two things:
