@@ -510,6 +510,12 @@ keeps the old drawer-style paddings rather than the new rail-style paddings. `mi
 </q-drawer>
 ```
 
+### `QBadge`
+
+The standard Quasar badge extends to the left from the right side of the target. Added `q-badge--center` class that
+keeps the middle of the badge on the right side of the target, and `q-badge--right` that extends longer badges to the
+right. Intended for use with *floating* badges.
+
 ## Boot File
 
 The boot file (`~@anoyomoose/q2-fresh-paint-md3e/boot`) must be registered in the `boot` array of `quasar.config.js`. It runs at app startup and does two things:

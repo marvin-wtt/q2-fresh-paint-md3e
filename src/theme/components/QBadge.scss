@@ -23,11 +23,16 @@
   // 11px, weight 500, line-height 16px, tracking 0.1pt
   font-size: $md3-badge-font-size;
   font-weight: 500;
-  line-height: 1rem; // 16px
+  line-height: 1em; // 16px, changed from rem
   letter-spacing: 0.00909em; // 0.1pt / 11sp
 
   // === Numeric stability ===
   font-variant-numeric: tabular-nums;
+
+  // === Vertical text centering ===
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 // === Small Badge (dot variant) ===
@@ -61,4 +66,17 @@
 // but adjust opacity for MD3E consistency
 .q-badge--transparent {
   opacity: 0.7;
+}
+
+// === Utility ===
+.q-badge--center {
+  left: 100%;
+  right: unset;
+  transform: translateX(-50%);
+}
+
+.q-badge--right {
+  left: 100%;
+  right: unset;
+  transform: translateX(-12px);
 }
